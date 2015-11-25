@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane fx:id="tabPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../cascadestyle/tabpane.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="45.0" tabMinHeight="45.0" tabMinWidth="140.0">
+        <tabs>
+            <Tab text="%main_tab7" />
+            <Tab text="%main_tab6" />
+            <Tab text="%main_tab5" />
+            <Tab text="%main_tab4" />
+            <Tab text="%main_tab3" />
+          <Tab text="%main_tab2" />
+          <Tab closable="false" style="-fx-font-size: ;" text="%main_tab1">
+               <content>
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView layoutX="800.0" layoutY="150.0" nodeOrientation="INHERIT" pickOnBounds="true" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="772.0" AnchorPane.rightAnchor="308.0" AnchorPane.topAnchor="117.0">
+                           <image>
+                              <Image url="@../images/splash.PNG" />
+                           </image></ImageView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <AnchorPane maxHeight="50.0" maxWidth="250.0" style="-fx-background-color: white; -fx-background-radius: 0 40 0 0;">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="215.0" pickOnBounds="true" style="-fx-border-radius: 5px;">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+               <effect>
+                  <MotionBlur angle="6.37" radius="2.66" />
+               </effect>
+            </ImageView>
+         </children>
+         <StackPane.margin>
+            <Insets left="2.0" top="3.0" />
+         </StackPane.margin>
+      </AnchorPane>
+   </children>
+</StackPane>

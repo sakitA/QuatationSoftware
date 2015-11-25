@@ -1,0 +1,39 @@
+//set the tab background color, cursor type and radius
+.tab-pane .tab{
+    -fx-background-color: rgb(60, 150, 185);
+    -fx-cursor: hand;
+    -fx-background-radius: 0;
+}
+
+//set the text color and size on the tab
+.tab-pane .tab-label{
+    -fx-text-fill: rgb(247, 251, 253);
+    -fx-font-size: 18px;
+}
+
+//change the tab color when mouse hover the tab
+.tab-pane .tab:hover{
+    -fx-background-color: rgb(85, 168, 200);
+}
+
+//set tab-pane header background color
+.tab-pane .tab-header-background{
+    -fx-background-color: rgb(47, 141, 177);
+}
+
+//change the background color when tab selected
+.tab-pane .tab:selected
+{
+    -fx-background-color: rgb(60, 145, 185);
+}
+
+//change the tab text color and type when tab selected
+.tab-pane .tab:selected .tab-label{
+    -fx-text-fill: #99ff99;
+    -fx-font-weight: bold;
+}
+
+//set tab insets
+tab-pane .tab{
+    -fx-background-insets: 0 2 0 1,0,0;
+}
