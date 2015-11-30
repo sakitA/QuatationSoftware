@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quatationsoftware;
+package quotationsoftware;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -15,7 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import quatationsoftware.util.Keys;
+import quotationsoftware.util.DbHandler;
+import quotationsoftware.util.Keys;
 
 /**
  *
@@ -26,10 +27,12 @@ public class QuatationSoftware extends Application{
     @FXML private TabPane tabPane;
 
     private final ResourceBundle rb = ResourceBundle.getBundle("resources.bundles.Bundle", Locale.getDefault());
+    
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         //load the main fxml file
-        Parent root = (Parent)FXMLLoader.load(getClass().getResource("/resources/fxml/main.fxml"), rb);
+        Parent root = (Parent)FXMLLoader.load(getClass().getResource(Keys.MAIN_SCREEN), rb);
         
         //get tabpane and select the home window
         tabPane = (TabPane)root.getChildrenUnmodifiable().get(0);
@@ -41,7 +44,10 @@ public class QuatationSoftware extends Application{
         primaryStage.setMinWidth(1280);
         primaryStage.setMinHeight(800);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/logo-small.png")));
-        primaryStage.setTitle(rb.getString(Keys.PROG_NAME));           
+        primaryStage.setTitle(rb.getString(Keys.PROG_NAME));   
+        primaryStage.setOnCloseRequest(e->{
+            DbHandler.shutdown();
+        });
         primaryStage.show();
     }
  

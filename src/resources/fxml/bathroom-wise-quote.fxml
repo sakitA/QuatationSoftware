@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BathroomWiseQuote">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../resource/style.css">
+         <content>
+            <AnchorPane>
+               <children>
+                  <Label fx:id="lblMsg" layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="992.0" styleClass="heading-label" text="Dear Sir,&#10;This is in respose to your enquiry wise letter no. #LETTER dated #DATE . We are pleased to quote you the following:" wrapText="true" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                  <TableView fx:id="tableView" layoutX="14.0" layoutY="77.0" onKeyPressed="#keyPressedOnTable" onMouseClicked="#mouseClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="77.0" />
+                  <Button layoutX="914.0" layoutY="552.0" mnemonicParsing="false" onAction="#finish" prefHeight="59.0" prefWidth="50.0" styleClass="round-button" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="125.0">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resource/ok.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="754.0" layoutY="547.0" mnemonicParsing="false" onAction="#back" prefHeight="59.0" prefWidth="50.0" rotate="180.0" styleClass="round-button" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="200.0">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../resource/left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="14.0" layoutY="547.0" mnemonicParsing="false" onAction="#deleteBtn" prefHeight="59.0" prefWidth="50.0" styleClass="round-button" AnchorPane.bottomAnchor="28.0">
+                      <graphic>
+                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                              <image>
+                                  <Image url="@../resource/delete.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

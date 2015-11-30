@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1339.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QuoteHistory">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../resource/style.css">
+         <content>
+            <AnchorPane>
+               <children>
+                  <Button layoutX="1257.0" layoutY="561.0" mnemonicParsing="false" onAction="#next" prefHeight="59.0" prefWidth="50.0" styleClass="round-button" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="20.0">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                           <image>
+                              <Image url="@../resource/left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="14.0" layoutY="547.0" mnemonicParsing="false" onAction="#deleteBtn" prefHeight="59.0" prefWidth="50.0" styleClass="round-button" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="95.0">
+                      <graphic>
+                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                              <image>
+                                  <Image url="@../resource/delete.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+                  </Button>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="14.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <ColorAdjust brightness="0.3" />
+                     </effect>
+                     <image>
+                        <Image url="@../resource/document.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="48.0" layoutY="24.0" styleClass="heading-label" text="Quotation History">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="58.0" styleClass="plain-label" text="Fill out these fields to get specific quote history">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="396.0" layoutY="43.0" styleClass="heading-label" text="From" AnchorPane.rightAnchor="560.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="644.0" layoutY="43.0" styleClass="heading-label" text="To" AnchorPane.rightAnchor="334.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="datePickerFrom" layoutX="449.0" layoutY="41.0" prefHeight="31.0" prefWidth="160.0" AnchorPane.rightAnchor="389.0" />
+                  <DatePicker fx:id="datePickerTo" layoutX="675.0" layoutY="41.0" prefHeight="31.0" prefWidth="160.0" AnchorPane.rightAnchor="163.0" />
+                  <Button defaultButton="true" layoutX="1202.0" layoutY="41.0" mnemonicParsing="false" onAction="#search" prefHeight="31.0" prefWidth="111.0" text="Search" AnchorPane.rightAnchor="24.0" />
+                  <TableView fx:id="tableView" layoutX="20.0" layoutY="124.0" onKeyPressed="#keyPressedTable" onMouseClicked="#mouseClickedTable" prefHeight="418.0" prefWidth="959.0" AnchorPane.bottomAnchor="106.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="124.0" />
+                  <TextField fx:id="txtName" layoutX="511.0" layoutY="41.0" onKeyPressed="#keyPressedSearchName" AnchorPane.rightAnchor="639.0" />
+                  <Label layoutX="451.0" layoutY="43.0" styleClass="heading-label" text="Name" AnchorPane.rightAnchor="838.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="copy" layoutX="20.0" layoutY="561.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="110.0" AnchorPane.bottomAnchor="30.0" text="Copy" onAction="#copy"/>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

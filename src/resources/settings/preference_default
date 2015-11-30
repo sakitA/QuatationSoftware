@@ -12,3 +12,6 @@ jaquar_essco=sp
 jaquar_water_heaters=sp
 jaquar_wellness=sp
 corrective_percentage=0.0
+db_name=jdbc:hsqldb:file:db/easyquote
+db_user_name=
+db_user_password=

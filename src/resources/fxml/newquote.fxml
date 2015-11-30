@@ -8,10 +8,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="750.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="750.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quotationsoftware.controller.NewQuote">
    <top>
       <VBox spacing="12.0">
          <children>
+            <Pane maxHeight="30.0" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
             <HBox maxWidth="1.7976931348623157E308">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -56,7 +57,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField minHeight="30.0" promptText="Free Lancer" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="customerName" minHeight="30.0" promptText="Free Lancer" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font></TextField>
@@ -77,7 +78,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField minHeight="30.0" promptText="India, Some Place, Home 5" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="customerAddress" minHeight="30.0" promptText="India, Some Place, Home #" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font></TextField>
@@ -93,7 +94,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField minHeight="30.0" promptText="(+Country code) phone number" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="customerContactNumber" minHeight="30.0" promptText="(+Country code) phone number" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font></TextField>
@@ -109,7 +110,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField minHeight="30.0" promptText="free@lancer.com" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="customerEmailID" minHeight="30.0" promptText="free@lancer.com" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font></TextField>
@@ -125,7 +126,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField minHeight="30.0" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="enquiryReference" minHeight="30.0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font></TextField>
@@ -141,7 +142,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <DatePicker editable="false" maxWidth="1.7976931348623157E308" minHeight="30.0" promptText="dd/mm/yyyy" style="-fx-font-size: 18px;" HBox.hgrow="ALWAYS" />
+                  <DatePicker fx:id="enquiryDate" editable="false" maxWidth="1.7976931348623157E308" minHeight="30.0" promptText="dd/mm/yyyy" style="-fx-font-size: 18px;" HBox.hgrow="ALWAYS" />
                </children>
                <VBox.margin>
                   <Insets left="3.0" right="3.0" />
@@ -154,7 +155,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField minHeight="30.0" HBox.hgrow="ALWAYS">
+                  <TextField fx:id="reference" minHeight="30.0" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font></TextField>
@@ -170,7 +171,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ChoiceBox maxWidth="1.7976931348623157E308" minHeight="30.0" prefWidth="150.0" style="-fx-font-size: 18px;" HBox.hgrow="ALWAYS" />
+                  <ChoiceBox fx:id="quoteFormat" maxWidth="1.7976931348623157E308" minHeight="30.0" prefWidth="150.0" style="-fx-font-size: 18px;" HBox.hgrow="ALWAYS" />
                </children>
                <VBox.margin>
                   <Insets bottom="30.0" left="3.0" right="3.0" top="25.0" />
@@ -185,16 +186,16 @@
    <right>
       <HBox maxWidth="1.7976931348623157E308" minWidth="350.0" prefWidth="200.0" spacing="25.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="15.0" stylesheets="@../cascadestyle/image.css" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" prefHeight="169.0" prefWidth="360.0" text="%nq_hd" textFill="#787878">
+                  <TitledPane fx:id="headings" alignment="CENTER" animated="false" collapsible="false" maxHeight="1.7976931348623157E308" prefHeight="169.0" prefWidth="360.0" text="%nq_hd" textFill="#787878">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <content>
                         <VBox prefHeight="129.0" prefWidth="305.0" spacing="7.0">
                            <children>
-                              <RadioButton mnemonicParsing="false" text="%hd_mrp" textFill="#787878">
+                              <RadioButton mnemonicParsing="false" selected="true" text="%hd_mrp" textFill="#787878">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -212,7 +213,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="%hd_mwd" textFill="#787878" toggleGroup="$headingGroup">
+                              <RadioButton fx:id="mrd" mnemonicParsing="false" text="%hd_mwd" textFill="#787878" toggleGroup="$headingGroup">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -221,11 +222,11 @@
                         </VBox>
                      </content>
                   </TitledPane>
-                  <TitledPane alignment="CENTER" animated="false" collapsible="false" text="%nq_vat" textFill="#787878">
+                  <TitledPane fx:id="vat" alignment="CENTER" animated="false" collapsible="false" text="%nq_vat" textFill="#787878">
                     <content>
                         <HBox>
                            <children>
-                              <RadioButton mnemonicParsing="false" text="%vat_iw" textFill="#787878">
+                              <RadioButton mnemonicParsing="false" selected="true" text="%vat_iw" textFill="#787878">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -246,11 +247,11 @@
                         <Font size="18.0" />
                      </font>
                   </TitledPane>
-                  <TitledPane alignment="CENTER" animated="false" collapsible="false" text="%display" textFill="#787878">
+                  <TitledPane fx:id="display" alignment="CENTER" animated="false" collapsible="false" text="%display" textFill="#787878">
                      <content>
                         <HBox>
                            <children>
-                              <RadioButton mnemonicParsing="false" text="%nq_dwi" textFill="#787878">
+                              <RadioButton mnemonicParsing="false" selected="true" text="%nq_dwi" textFill="#787878">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -271,14 +272,18 @@
                         <Font size="18.0" />
                      </font>
                   </TitledPane>
-                  <ImageView id="imgNext" fitHeight="64.0" fitWidth="64.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/left.png" />
-                     </image>
+                  <Button fx:id="btnNext" maxHeight="75.0" maxWidth="90.0" mnemonicParsing="false" onAction="#next" prefHeight="93.0" prefWidth="133.0" stylesheets="@../cascadestyle/image.css">
                      <VBox.margin>
-                        <Insets />
+                        <Insets right="25.0" />
                      </VBox.margin>
-                  </ImageView>
+                     <graphic>
+                        <ImageView id="imgNext" fitHeight="75.0" fitWidth="90.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </VBox>
          </children>
