@@ -4,15 +4,21 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
@@ -20,7 +26,13 @@ import javafx.scene.control.ToggleGroup;
 import quotationsoftware.model.Quotation;
 import quotationsoftware.dao.QuotationDAO;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import quotationsoftware.util.Keys;
+import quotationsoftware.util.UndecoratedWindow;
 
 /**
  * Controller class for new quotation screen.
@@ -55,20 +67,50 @@ public class NewQuote implements Initializable {
     private RadioButton mrd;
     @FXML
     private Button btnNext;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private ProgressIndicator prgInd;
+    @FXML
+    private Label prgLbl;
+    @FXML
+    private Region region;
 
     private final QuotationDAO quotationDAO = QuotationDAO.getInstance();
+    private Service service;
+    private ResourceBundle rb;
+    private static boolean oncestart = false;
+    private String view;
+    private Stage primaryStage;
+    private Stage childStage;
+    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        //enterSampleData();
+        enterSampleData();
+        rb = arg1;
         setFormData();
 
         vat.disableProperty().bind(mrd.selectedProperty().not());
-        btnNext.disableProperty().bind(Bindings.or(
+        btnNext.disableProperty().bind(Bindings.or(Bindings.or(
                 customerName.textProperty().isEmpty(),
-                customerAddress.textProperty().isEmpty()));
-        
+                customerAddress.textProperty().isEmpty()),
+                quoteFormat.getSelectionModel().selectedIndexProperty().isEqualTo(-1)));
+
         quoteFormat.getItems().addAll(Keys.QUOTE_FORMAT);
+
+        service = new Service() {
+
+            @Override
+            protected Task createTask() {
+                return myTask();
+            }
+        };
+        prgInd.visibleProperty().bind(service.runningProperty());
+        prgLbl.visibleProperty().bind(service.runningProperty());
+        region.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        region.visibleProperty().bind(service.runningProperty());
+        
     }
 
     /**
@@ -88,8 +130,8 @@ public class NewQuote implements Initializable {
             }
         }
         int index = quoteFormat.getSelectionModel().getSelectedIndex();
-        String view;
-        switch(index){
+
+        switch (index) {
             case 0:
                 view = Keys.ITEM_WISE_QUOTE;
                 break;
@@ -102,9 +144,14 @@ public class NewQuote implements Initializable {
         }
 
         try {
-//            Pane nextScreen = FXMLLoader.load(getClass().getClassLoader().getResource(view));
-//            ((BorderPane) rootPane.getParent()).setCenter(nextScreen);
-            System.out.println("new window will be open");
+            primaryStage = (Stage) btnNext.getScene().getWindow();
+            childStage = new Stage();
+            if (oncestart) {
+                service.restart();
+            } else {
+                oncestart = true;
+                service.start();
+            }
         } catch (Exception e) {
             new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
         }
@@ -121,8 +168,8 @@ public class NewQuote implements Initializable {
         quotation.setEmailId(customerEmailID.getText());
         quotation.setEnquiryReferenceNo(enquiryReference.getText());
         LocalDate ld = enquiryDate.getValue();
-        Date date = ld==null? Date.valueOf(LocalDate.now()):Date.valueOf(ld);
-        quotation.setDate(date);
+        Date date = ld == null ? Date.valueOf(LocalDate.now()) : Date.valueOf(ld);
+        quotation.setEnquiryDate(date);
         quotation.setReferenceRemark(reference.getText());
         quotation.setQuoteFormat(quoteFormat.getSelectionModel().getSelectedItem());
         quotation.setHeadings(((RadioButton) headingGroup.getSelectedToggle()).getText());
@@ -143,7 +190,7 @@ public class NewQuote implements Initializable {
         customerEmailID.setText(quotation.getEmailId());
         enquiryReference.setText(quotation.getEnquiryReferenceNo());
         final Date date = quotation.getEnquiryDate();
-        if ( date != null) {
+        if (date != null) {
             enquiryDate.setValue(date.toLocalDate());
         }
         reference.setText(quotation.getReferenceRemark());
@@ -163,5 +210,43 @@ public class NewQuote implements Initializable {
                 ((RadioButton) toggle).setSelected(true);
             }
         }
+    }
+
+    private void enterSampleData() {
+        customerName.setText("John F. Smith");
+        customerAddress.setText("Washington Street 20b");
+        customerContactNumber.setText("0500/111-222");
+        customerEmailID.setText("john.smith@gmail.com");
+        enquiryReference.setText("#JHOOIJ10001");
+        reference.setText("Nothing to remark.");
+        enquiryDate.setValue(LocalDate.now());
+    }
+
+    private Task myTask() {
+        return new Task() {
+            @Override
+            protected Object call() throws Exception {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(view), rb);
+                Scene scene = new Scene(loader.load());
+                Platform.runLater(()->{
+                    childStage.setScene(scene);
+                    childStage.setTitle(view.substring(view.lastIndexOf("/") + 1, view.lastIndexOf(".")));
+                    childStage.initOwner(primaryStage);
+                    childStage.initModality(Modality.WINDOW_MODAL);
+                    childStage.initStyle(StageStyle.UNDECORATED);
+                    childStage.setFullScreen(true);
+                    new UndecoratedWindow(childStage, scene);
+                });
+                return true;
+            }
+
+            @Override
+            protected void succeeded() {
+                super.succeeded(); //To change body of generated methods, choose Tools | Templates.
+                primaryStage.hide();
+                childStage.setOnCloseRequest(e -> primaryStage.show());
+                childStage.showAndWait();
+            }
+        };
     }
 }

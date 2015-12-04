@@ -8,8 +8,15 @@ and open the template in the editor.
     Author     : sakit
 */
 
-.button:hover{    
+#arrow:hover{    
     -fx-effect:dropshadow(three-pass-box, #f5a20f,10.0,0.90,0.0,0.0);
+}
+
+#save:hover{
+    -fx-effect: dropshadow(three-pass-box, #0da30d,10.0,0.90,0.0,0.0);
+}
+#delete:hover{
+    -fx-effect: dropshadow(three-pass-box, red,10.0,0.90,0.0,0.0);
 }
 
 .button{

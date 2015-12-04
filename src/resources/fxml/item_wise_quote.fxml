@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../cascadestyle/image.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quotationsoftware.controller.ItemWiseQuote">
+   <top>
+      <VBox>
+         <children>
+            <Pane maxHeight="30.0" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox minWidth="200.0" prefHeight="100.0" prefWidth="180.0" spacing="15.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%cl_to" textAlignment="RIGHT" wrappingWidth="41.13671875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="3.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="customerName" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="customerAddress" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="customerContact" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox minWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%cl_from" textAlignment="RIGHT" wrappingWidth="41.13671875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="3.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="enquiryDate" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="quotationNumber" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="shopCity" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" minWidth="200.0" prefHeight="100.0" spacing="7.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%cl_shop" />
+                        <Label fx:id="shopName" text="Label">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%cl_address">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Label fx:id="shopAddress" text="Label">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="18.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox spacing="5.0">
+         <children>
+            <Text fx:id="textMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="%cl_msg" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="7.0" />
+               </HBox.margin>
+               <VBox.margin>
+                  <Insets left="7.0" right="7.0" top="7.0" />
+               </VBox.margin>
+            </Text>
+            <TableView fx:id="tableView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="itemNumber" editable="false" maxWidth="1500.0" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_sn" />
+                <TableColumn fx:id="itemCode" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_ic" />
+                  <TableColumn fx:id="itemDescription" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_id" />
+                  <TableColumn fx:id="itemQuantity" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_q" />
+                  <TableColumn fx:id="mrp" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_mrp" />
+                  <TableColumn fx:id="discount" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_dis" />
+                  <TableColumn fx:id="nrp" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_nrp" />
+                  <TableColumn fx:id="vat" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_vat" />
+                  <TableColumn fx:id="aev" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_aev" />
+                  <TableColumn fx:id="vta" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_vta" />
+                  <TableColumn fx:id="total" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_tot" />
+                  <TableColumn fx:id="image" editable="false" minWidth="-1.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_img" />
+                  <TableColumn fx:id="delImage" editable="false" maxWidth="3500.0" prefWidth="75.0" sortable="false" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="arrow" mnemonicParsing="false" onAction="#back">
+               <graphic>
+                  <ImageView fitHeight="75.0" fitWidth="90.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/left.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="save" maxHeight="25.0" maxWidth="25.0" mnemonicParsing="false" onAction="#save">
+               <graphic>
+                  <ImageView fitHeight="75.0" fitWidth="90.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../images/ok.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets top="3.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>

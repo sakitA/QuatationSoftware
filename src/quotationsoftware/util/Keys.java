@@ -31,8 +31,8 @@ public class Keys {
     /*=========================FXML VIEW NAME=====================================*/
     public static final String MAIN_SCREEN = "/resources/fxml/main.fxml";
     public static final String HOME = "/resources/fxml/home.fxml";
-    public static final String NEW_QUOTE = "/resources/fxml/newquote.fxml";
-    public static final String ITEM_WISE_QUOTE = "/resources/fxml/item-wise-quote.fxml";
+    public static final String NEW_QUOTE = "/resources/fxml/new_quote.fxml";
+    public static final String ITEM_WISE_QUOTE = "/resources/fxml/item_wise_quote.fxml";
     public static final String BATHROOM_WISE = "/resources/fxml/bathroom-wise-quote.fxml";
     public static final String BATHROM_WISE_SUMMARY = "/resources/fxml/bathroom-wise-summary-sheet.fxml";
     public static final String QUOTE_HISTORY = "/resources/fxml/quote-history.fxml";

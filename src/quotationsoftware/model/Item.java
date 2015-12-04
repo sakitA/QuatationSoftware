@@ -1,5 +1,6 @@
 package quotationsoftware.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -35,7 +36,6 @@ public class Item {
     private IntegerProperty bathroomId;
     private IntegerProperty bathroomElement;
     private DoubleProperty totalAmount;
-
     private boolean label;
 
     public Item() {
@@ -91,8 +91,9 @@ public class Item {
 
     public IntegerProperty serialNoProperty() {
         if (serialNo == null) {
-            serialNo = new SimpleIntegerProperty(this, "serialNo");
+            serialNo = new SimpleIntegerProperty(this, "serialNo");            
         }
+        
         return serialNo;
     }
 

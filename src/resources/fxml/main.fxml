@@ -18,7 +18,7 @@
                 <Tab text="%main_tab3" />
                 <Tab closable="false" text="%main_tab2">
                     <content>
-                        <fx:include fx:id="newquote" source="newquote.fxml" />
+                        <fx:include fx:id="newquote" source="new_quote.fxml" />
                     </content>
                 </Tab>
                 <Tab closable="false" text="%main_tab1">

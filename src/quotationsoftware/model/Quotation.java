@@ -20,7 +20,7 @@ public class Quotation {
     private StringProperty customerName;
     private StringProperty customerAddress;
     private StringProperty emailId;
-    private String contactNumber;
+    private StringProperty contactNumber;
     private String enquiryReferenceNo;
     private Date enquiryDate;
     private String referenceRemark;
@@ -42,9 +42,9 @@ public class Quotation {
         this.id = new SimpleIntegerProperty(original.getId());
         this.customerName = new SimpleStringProperty(original.getCustomerName());
         this.customerAddress = new SimpleStringProperty(original.getCustomerAddress());
-        this.date = new SimpleObjectProperty<Date>(original.getDate());
+        this.date = new SimpleObjectProperty<>(original.getDate());
         this.emailId = new SimpleStringProperty(original.getEmailId());
-        this.contactNumber = original.getContactNumber();
+        this.contactNumber = new SimpleStringProperty(original.getContactNumber());
         this.enquiryReferenceNo = original.getEnquiryReferenceNo();
         this.enquiryDate = original.getEnquiryDate();
         this.referenceRemark = original.getReferenceRemark();
@@ -88,13 +88,13 @@ public class Quotation {
 
     public ObjectProperty<Date> dateProperty() {
         if (date == null) {
-            date = new SimpleObjectProperty<Date>(this, "date");
+            date = new SimpleObjectProperty<>(this, "date");
         }
         return date;
     }
 
     public void setDate(Date date) {
-        dateProperty().set(quotationDate);
+        dateProperty().set(date);
     }
 
     public Date getDate() {
@@ -131,12 +131,19 @@ public class Quotation {
         return emailIdProperty().get();
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public StringProperty contactNumberProperty(){
+        if (contactNumber == null) {
+            contactNumber = new SimpleStringProperty(this, "contactNumber");
+        }
+        return contactNumber;        
     }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    
+    public void setContactNumber(String contactNumber){
+        contactNumberProperty().set(contactNumber);
+    }
+    
+    public String getContactNumber() {
+        return contactNumberProperty().get();
     }
 
     public String getEnquiryReferenceNo() {
