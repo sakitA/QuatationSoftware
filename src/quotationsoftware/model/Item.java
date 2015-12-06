@@ -1,13 +1,13 @@
 package quotationsoftware.model;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
+import static quotationsoftware.QuatationSoftware.PROP;
 /**
  * Model class for item object with javafx specific properties.
  */
@@ -15,11 +15,8 @@ public class Item {
 
     private IntegerProperty id;
     private IntegerProperty serialNo;
-    private StringProperty itemCodeL;
-    private StringProperty itemCodeM;
-    private StringProperty itemCodeS;
-    private StringProperty itemDescriptionS;
-    private StringProperty itemDescriptionL;
+    private StringProperty itemCode;
+    private StringProperty itemDescription;
     private IntegerProperty quantity;
     private DoubleProperty mrp;
     private DoubleProperty nrp;
@@ -36,8 +33,14 @@ public class Item {
     private IntegerProperty bathroomId;
     private IntegerProperty bathroomElement;
     private DoubleProperty totalAmount;
+    private String itemCodeL;
+    private String itemCodeM;
+    private String itemCodeS;    
+    private String itemDescriptionS;
+    private String itemDescriptionL;
     private boolean label;
-
+    private Double percentage = null;
+    
     public Item() {
         this.id = new SimpleIntegerProperty(-1);
         this.image = new SimpleIntegerProperty(-1);
@@ -52,11 +55,8 @@ public class Item {
     public Item(Item original) {
         this.id = new SimpleIntegerProperty(original.getId());
         this.serialNo = new SimpleIntegerProperty(original.getSerialNo());
-        this.itemCodeL = new SimpleStringProperty(original.getItemCodeL());
-        this.itemCodeM = new SimpleStringProperty(original.getItemCodeM());
-        this.itemCodeS = new SimpleStringProperty(original.getItemCodeS());
-        this.itemDescriptionS = new SimpleStringProperty(original.getItemDescriptionS());
-        this.itemDescriptionL = new SimpleStringProperty(original.getItemDescriptionL());
+        this.itemCode = new SimpleStringProperty(original.getItemCode());
+        this.itemDescription = new SimpleStringProperty(original.getItemDescription());
         this.quantity = new SimpleIntegerProperty(original.getQuantity());
         this.mrp = new SimpleDoubleProperty(original.getMrp());
         this.nrp = new SimpleDoubleProperty(original.getNrp());
@@ -105,81 +105,109 @@ public class Item {
         return serialNoProperty().get();
     }
 
-    public StringProperty itemCodeLProperty() {
-        if (itemCodeL == null) {
-            itemCodeL = new SimpleStringProperty(this, "itemCodeL");
+    public StringProperty itemCodeProperty() {
+        if (itemCode == null) {
+            itemCode = new SimpleStringProperty(this, "itemCode", getItemCode());
         }
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        itemCodeProperty().set(itemCode);
+    }
+
+    public String getItemCode() {
+        return getCode();
+    }
+    
+    private String getCode(){
+        String code;
+        switch(PROP.getProperty("product_code")){
+            case "Long":
+                code = itemCodeL;
+                break;
+            case "Medium":
+                code = itemCodeM;
+                break;
+            case "Small":
+                code = itemCodeS;
+                break;
+            default:
+                code = null;
+        }
+        return code;
+    }
+
+    public void setLongItemCode(String longCode){
+        itemCodeL = longCode;
+    }
+    
+    public String getLongItemCode(){
         return itemCodeL;
     }
-
-    public void setItemCodeL(String itemCode) {
-        itemCodeLProperty().set(itemCode);
+    
+    public void setMediumItemCode(String mediumCode){
+        itemCodeM = mediumCode;
     }
-
-    public String getItemCodeL() {
-        return itemCodeLProperty().get();
-    }
-
-    public StringProperty itemCodeMProperty() {
-        if (itemCodeM == null) {
-            itemCodeM = new SimpleStringProperty(this, "itemCodeM");
-        }
+    
+    public String getMediumItemCode(){
         return itemCodeM;
     }
-
-    public void setItemCodeM(String itemCodeM) {
-        itemCodeMProperty().set(itemCodeM);
+    
+    public void setShortItemCode(String smallCode){
+        itemCodeS = smallCode;
     }
 
-    public String getItemCodeM() {
-        return itemCodeMProperty().get();
-    }
-
-    public StringProperty itemCodeSProperty() {
-        if (itemCodeS == null) {
-            itemCodeS = new SimpleStringProperty(this, "itemCodeS");
-        }
+    public String getShortItemCode(){
         return itemCodeS;
-    }
-
-    public void setItemCodeS(String itemCodeS) {
-        itemCodeSProperty().set(itemCodeS);
-    }
-
-    public String getItemCodeS() {
-        return itemCodeSProperty().get();
-    }
-
-    public StringProperty itemDescriptionSProperty() {
-        if (itemDescriptionS == null) {
-            itemDescriptionS = new SimpleStringProperty(this, "itemDescriptionS");
+}
+    
+    public StringProperty itemDescriptionProperty() {
+        if (itemDescription == null) {
+            itemDescription = new SimpleStringProperty(this, "itemDescription", getDescription());
         }
-        return itemDescriptionS;
+        return itemDescription;
     }
 
-    public void setItemDescriptionS(String itemDescription) {
-        itemDescriptionSProperty().set(itemDescription);
+    public void setItemDescription(String itemDescription) {
+        itemDescriptionProperty().set(itemDescription);
     }
 
-    public String getItemDescriptionS() {
-        return itemDescriptionSProperty().get();
+    public String getItemDescription() {
+        return getDescription();
     }
-
-    public StringProperty itemDescriptionLProperty() {
-        if (itemDescriptionL == null) {
-            itemDescriptionL = new SimpleStringProperty(this, "itemDescriptionL");
+    
+    private String getDescription(){
+        String description;
+        switch(PROP.getProperty("item_description")){
+            case "Detailed":
+                description = itemDescriptionL;
+                break;
+            case "Short":
+                description = itemDescriptionS;
+                break;
+            default:
+                description = null;
         }
+        return description;
+    }
+
+    public void setDetailedItemDescription(String detailedDescription){
+        itemDescriptionL = detailedDescription;
+    }
+    
+    public String getDetailedItemDescription(){
         return itemDescriptionL;
     }
-
-    public void setItemDescriptionL(String itemDescriptionL) {
-        itemDescriptionLProperty().set(itemDescriptionL);
+    
+    public void setShortItemDescription(String shortDescription){
+        itemDescriptionS = shortDescription;
     }
-
-    public String getItemDescriptionL() {
-        return itemDescriptionLProperty().get();
+    
+    public String getShortItemDescription(){
+        return itemDescriptionS;
     }
-
+    
     public IntegerProperty quantityProperty() {
         if (quantity == null) {
             quantity = new SimpleIntegerProperty(this, "quantity");
@@ -243,6 +271,7 @@ public class Item {
     public DoubleProperty vatPercentageProperty() {
         if (vatPercentage == null) {
             vatPercentage = new SimpleDoubleProperty(this, "vatPercentage");
+            System.out.println(vatPercentage.getValue());
         }
         return vatPercentage;
     }
@@ -259,6 +288,7 @@ public class Item {
         if (nrpWithoutVat == null) {
             nrpWithoutVat = new SimpleDoubleProperty(this, "nrpWithoutVat");
         }
+        nrpWithoutVat.bind(Bindings.subtract(nrpProperty(), vatAmountProperty()));
         return nrpWithoutVat;
     }
 
@@ -289,6 +319,7 @@ public class Item {
         if (vatAmount == null) {
             vatAmount = new SimpleDoubleProperty(this, "vatAmount");
         }
+        vatAmount.bind(Bindings.divide(Bindings.multiply(vatPercentageProperty(), totalAmountProperty()),100.0));
         return vatAmount;
     }
 
@@ -409,6 +440,7 @@ public class Item {
         if (totalAmount == null) {
             totalAmount = new SimpleDoubleProperty(this, "totalAmount");
         }
+        totalAmount.bind(Bindings.multiply(quantityProperty(), nrpProperty()));
         return totalAmount;
     }
 
@@ -426,5 +458,9 @@ public class Item {
 
     public void setLabel(boolean label) {
         this.label = label;
+    }
+
+    public void setPercentage() {
+        setVatPercentage(Double.valueOf(PROP.getProperty("vat_percentage")));
     }
 }

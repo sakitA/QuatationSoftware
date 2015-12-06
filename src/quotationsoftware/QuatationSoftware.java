@@ -5,7 +5,9 @@
  */
 package quotationsoftware;
 
+import java.io.InputStream;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -26,27 +28,32 @@ public class QuatationSoftware extends Application{
     
     @FXML private TabPane tabPane;
 
-    private final ResourceBundle rb = ResourceBundle.getBundle("resources.bundles.Bundle", Locale.getDefault());
-    
+    private final ResourceBundle RB = ResourceBundle.getBundle("resources.bundles.Bundle", Locale.getDefault());
+    public final static Properties PROP = new Properties();
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         //load the main fxml file
-        Parent root = (Parent)FXMLLoader.load(getClass().getResource(Keys.MAIN_SCREEN), rb);
+        Parent root = (Parent)FXMLLoader.load(getClass().getResource(Keys.MAIN_SCREEN), RB);
         
         //get tabpane and select the home window
         tabPane = (TabPane)root.getChildrenUnmodifiable().get(0);
         tabPane.getSelectionModel().clearAndSelect(6);
         
+        try ( //load properties file
+            InputStream in = getClass().getResourceAsStream("/resources/settings/preference")) {
+            PROP.load(in);
+        }
+        
         //load the gui
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,1300,950);
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(1280);
-        primaryStage.setMinHeight(800);
+        primaryStage.setMaximized(true);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/logo-small.png")));
-        primaryStage.setTitle(rb.getString(Keys.PROG_NAME));   
+        primaryStage.setTitle(RB.getString(Keys.PROG_NAME));   
         primaryStage.setOnCloseRequest(e->{
             DbHandler.shutdown();
+            System.out.println("database shutdowned");
         });
         primaryStage.show();
     }

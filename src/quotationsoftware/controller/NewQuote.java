@@ -31,6 +31,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import quotationsoftware.dao.ExcelDAO;
 import quotationsoftware.util.Keys;
 import quotationsoftware.util.UndecoratedWindow;
 
@@ -83,7 +84,6 @@ public class NewQuote implements Initializable {
     private String view;
     private Stage primaryStage;
     private Stage childStage;
-    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -110,7 +110,7 @@ public class NewQuote implements Initializable {
         prgLbl.visibleProperty().bind(service.runningProperty());
         region.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
         region.visibleProperty().bind(service.runningProperty());
-        
+
     }
 
     /**
@@ -123,26 +123,25 @@ public class NewQuote implements Initializable {
         if (quotationDAO.getQuotation().getId() != 0) {
             try {
                 quotationDAO.copy();
-                btnNext.getScene().getWindow().hide();
-                return;
             } catch (Exception e) {
                 new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
             }
-        }
-        int index = quoteFormat.getSelectionModel().getSelectedIndex();
+        } else {
+            int index = quoteFormat.getSelectionModel().getSelectedIndex();
 
-        switch (index) {
-            case 0:
-                view = Keys.ITEM_WISE_QUOTE;
-                break;
-            case 1:
-                view = Keys.BATHROM_WISE_SUMMARY;
-                break;
-            case 2:
-                view = Keys.COMPARATIVE_BATHROOM_QUOTE;
-                break;
+            switch (index) {
+                case 0:
+                    view = Keys.ITEM_WISE_QUOTE;
+                    break;
+                case 1:
+                    view = Keys.BATHROM_WISE_SUMMARY;
+                    break;
+                case 2:
+                    view = Keys.COMPARATIVE_BATHROOM_QUOTE;
+                    break;
+            }
         }
-
+        
         try {
             primaryStage = (Stage) btnNext.getScene().getWindow();
             childStage = new Stage();
@@ -226,15 +225,16 @@ public class NewQuote implements Initializable {
         return new Task() {
             @Override
             protected Object call() throws Exception {
+                ExcelDAO.getInstance();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(view), rb);
                 Scene scene = new Scene(loader.load());
-                Platform.runLater(()->{
+                Platform.runLater(() -> {
                     childStage.setScene(scene);
                     childStage.setTitle(view.substring(view.lastIndexOf("/") + 1, view.lastIndexOf(".")));
                     childStage.initOwner(primaryStage);
                     childStage.initModality(Modality.WINDOW_MODAL);
                     childStage.initStyle(StageStyle.UNDECORATED);
-                    childStage.setFullScreen(true);
+                    childStage.setMaximized(true);
                     new UndecoratedWindow(childStage, scene);
                 });
                 return true;
@@ -245,7 +245,7 @@ public class NewQuote implements Initializable {
                 super.succeeded(); //To change body of generated methods, choose Tools | Templates.
                 primaryStage.hide();
                 childStage.setOnCloseRequest(e -> primaryStage.show());
-                childStage.showAndWait();
+                childStage.show();
             }
         };
     }

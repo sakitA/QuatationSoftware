@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -38,7 +37,6 @@ public class DbHandler {
     /**
      * Unlocks and shuts down the database.
      *
-     * @throws java.lang.Exception
      */
     public synchronized static void shutdown() {
         try {
@@ -62,10 +60,12 @@ public class DbHandler {
      */
     public static String getSqlScript(String fileName) throws IOException {
         Scanner s;
+        String query;
         try (InputStream is = DbHandler.class.getResourceAsStream(fileName)) {
             s = new Scanner(is).useDelimiter("\\A");
+            query = s.hasNext() ? s.next() : "";
         }
-        return s.hasNext() ? s.next() : "";
+        return query;
     }
 
     /**
@@ -78,12 +78,11 @@ public class DbHandler {
     public static int getNextId(String table) {
         int nextId = 1;
         try {
-            try (PreparedStatement statement = connection.prepareStatement(Keys.MAX_ID_QUERY)) {
-                statement.setString(1, table);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        nextId = resultSet.getInt("next_id");
-                    }
+            try (Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.
+                            executeQuery(Keys.MAX_ID_QUERY + table);) {
+                if (resultSet.next()) {
+                    nextId = resultSet.getInt("next_id");
                 }
             }
         } catch (Exception e) {

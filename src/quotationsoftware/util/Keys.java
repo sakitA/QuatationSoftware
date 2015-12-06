@@ -11,7 +11,7 @@ package quotationsoftware.util;
  */
 public class Keys {
     /*=======================SQL statement========================================*/
-    public final static String MAX_ID_QUERY = "select max(id) + 1 as next_id from ?";
+    public final static String MAX_ID_QUERY = "select max(id) + 1 as next_id from ";
     public final static String QUATATION_LIST_QUERY = "select * from quotations";
     public final static String ITEM_LIST_QUERY = "select * from items where quotation_id = ? and bathroom_id = ?";
     public final static String BATHROOM_LIST_QUERY = "select * from bathrooms";
@@ -27,7 +27,9 @@ public class Keys {
     /*=================================END========================================*/
     public final static String PROG_NAME = "prog_name";
     public final static String[] QUOTE_FORMAT = {"Item Wise Quote", "Bathroom Wise Quote", "Comparative Bathroom Quote"};
-    
+    public final static String CMB_TXT="cmb_txt";
+    public final static String NOT_LBL = "-fx-font-size: 16px; -fx-text-fill: white; -fx-font-weight: bold; -fx-label-padding: 25px 15px 25px 5px; ";
+    public final static String NOT_HBOX = "-fx-background-color: #00000099; -fx-background-radius: 4px; ";
     /*=========================FXML VIEW NAME=====================================*/
     public static final String MAIN_SCREEN = "/resources/fxml/main.fxml";
     public static final String HOME = "/resources/fxml/home.fxml";

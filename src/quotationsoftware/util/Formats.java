@@ -22,5 +22,5 @@ public abstract class Formats {
         if (date == null)
             return "N/A";
         return dateFormat.format(date);
-    }
+    }    
 }

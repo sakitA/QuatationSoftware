@@ -121,18 +121,18 @@
             </Text>
             <TableView fx:id="tableView" editable="true" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="itemNumber" editable="false" maxWidth="45.0" minWidth="30.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_sn" />
+                <TableColumn fx:id="itemNumber" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_sn" />
                 <TableColumn fx:id="itemCode" maxWidth="200.0" minWidth="200.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_ic" />
-                  <TableColumn fx:id="itemDescription" editable="false" style="-fx-alignment: center;" text="%iwq_id" />
-                  <TableColumn fx:id="itemQuantity" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_q" />
-                  <TableColumn fx:id="mrp" editable="false" maxWidth="100.0" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_mrp" />
-                  <TableColumn fx:id="discount" editable="false" maxWidth="100.0" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_dis" />
-                  <TableColumn fx:id="nrp" editable="false" maxWidth="100.0" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_nrp" />
-                  <TableColumn fx:id="vat" editable="false" maxWidth="100.0" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_vat" />
+                  <TableColumn fx:id="itemDescription" editable="false" minWidth="80.0" style="-fx-alignment: center;" text="%iwq_id" />
+                  <TableColumn fx:id="itemQuantity" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_q" />
+                  <TableColumn fx:id="mrp" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_mrp" />
+                  <TableColumn fx:id="discount" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_dis" />
+                  <TableColumn fx:id="nrp" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_nrp" />
+                  <TableColumn fx:id="vat" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_vat" />
                   <TableColumn fx:id="aev" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_aev" />
-                  <TableColumn fx:id="vta" editable="false" maxWidth="100.0" minWidth="90.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_vta" />
-                  <TableColumn fx:id="total" editable="false" maxWidth="150.0" minWidth="90.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_tot" />
-                  <TableColumn fx:id="image" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_img" />
+                  <TableColumn fx:id="vta" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_vta" />
+                  <TableColumn fx:id="total" editable="false" maxWidth="150.0" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_tot" />
+                  <TableColumn fx:id="image" editable="false" maxWidth="300.0" minWidth="120.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_img" />
                   <TableColumn fx:id="delImage" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="84.0" sortable="false" style="-fx-alignment: center;" />
               </columns>
                <columnResizePolicy>
