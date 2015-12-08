@@ -6,11 +6,14 @@
 package quotationsoftware.controller;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +26,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import quotationsoftware.dao.QuotationDAO;
@@ -60,6 +65,8 @@ public class ItemWiseQuote implements Initializable {
     @FXML
     private Text textMessage;
     @FXML
+    private Label lblTotal, lblQuantity, lblMrp, lblNrp, lblDiscount, lblAev, lblVta, lblTa, empty;
+    @FXML
     private TableColumn<Item, Integer> itemNumber;
     @FXML
     private TableColumn<Item, String> itemCode;
@@ -87,40 +94,56 @@ public class ItemWiseQuote implements Initializable {
     private TableColumn<Item, Integer> delImage;
     @FXML
     private TableView<Item> tableView;
+    @FXML
+    private HBox hbox; 
 
     private ResourceBundle rb;
     private final QuotationDAO qdao = QuotationDAO.getInstance();
     private final ItemDAO idao = ItemDAO.getInstance();
     private final Quotation quota = qdao.getQuotation();
-
+    
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         rb = resources;
         initQuatationInfo();
         initTable();
+        bindLabelWidthProperty();
+        tableView.getItems().clear();
         tableView.setPlaceholder(new Text(rb.getString("empty")));
         tableView.getSelectionModel().setCellSelectionEnabled(true);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableView.getItems().addListener((ListChangeListener.Change<? extends Item> c) -> {
+            doCalculations();
+        });
+        
         fillTable();
         switch (quota.getHeadings()) {
             case "MRP":
                 hideColumn(nrp, discount, vat, aev, vta);
+                showLabel(lblTotal, lblQuantity, lblMrp, lblTa);
                 break;
             case "NRP":
                 hideColumn(mrp, discount, vat, aev, vta);
+                showLabel(lblTotal, lblQuantity, lblNrp, lblTa);
                 break;
             case "MRP With NRP & Discounts":
                 hideColumn(vat, aev, vta);
+                showLabel(lblTotal, lblQuantity, lblMrp, lblDiscount, lblNrp, lblTa);
                 break;
             case "MRP With Discounts":
                 if (quota.getVat().equals("VAT in total")) {
-                    hideColumn(nrp, vta, total);
+                    hideColumn(nrp, vat, vta, total);
+                    showLabel(lblTotal, lblQuantity, lblMrp, lblDiscount, lblAev);
+                    
                 } else {
                     hideColumn();
+                    showLabel();
                 }
         }
+        
     }
-
+    
     private void initQuatationInfo() {
         textMessage.setText(String.format(
                 rb.getString("cl_msg"),
@@ -140,6 +163,7 @@ public class ItemWiseQuote implements Initializable {
     private void back(ActionEvent e) {
         Node node = (Node) e.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
+        hbox.getChildren().clear();
         stage.getOnCloseRequest().handle(null);
         stage.close();
     }
@@ -151,13 +175,22 @@ public class ItemWiseQuote implements Initializable {
             int index = 0;
             for (int i = 0; i < columns.length; i++) {
                 index = list.indexOf(columns[i]);
-                list.get(index).setVisible(false);
+                list.get(index).setVisible(false);                
             }
         } else {
             for (int i = 0, len = list.size(); i < len; i++) {
                 list.get(i).setVisible(true);
             }
         }
+    }
+    
+    private void showLabel(Label... labels){
+        hbox.getChildren().clear();
+        
+        if(labels.length==0)
+            hbox.getChildren().addAll(lblTotal, lblQuantity, lblMrp, lblDiscount, lblNrp, empty, lblAev, lblVta, lblTa);
+        else
+            hbox.getChildren().addAll(labels);
     }
 
     private void initTable() {
@@ -177,6 +210,13 @@ public class ItemWiseQuote implements Initializable {
         itemQuantity.setCellFactory(param -> {
             return CustomCells.quantityCell();
         });
+        itemQuantity.setOnEditCommit(t->{
+            int index = t.getTablePosition().getRow();
+            Item item = t.getTableView().getItems().get(index);
+            item.setQuantity(t.getNewValue());
+            doCalculations();
+        });
+        
 
         mrp.setCellValueFactory(new PropertyValueFactory<>("mrp"));
         mrp.setCellFactory(param -> {
@@ -267,6 +307,52 @@ public class ItemWiseQuote implements Initializable {
         } else {
             tableView.getItems().add(new Item());
         }
+    }
 
+    private void bindLabelWidthProperty() {
+        lblTotal.prefWidthProperty().bind(Bindings.
+                        add(itemNumber.widthProperty(), itemCode.widthProperty()).
+                        add(itemDescription.widthProperty()));
+        lblQuantity.prefWidthProperty().bind(itemQuantity.widthProperty());
+        lblMrp.prefWidthProperty().bind(mrp.widthProperty());
+        lblDiscount.prefWidthProperty().bind(discount.widthProperty());
+        lblNrp.prefWidthProperty().bind(nrp.widthProperty());
+        lblAev.prefWidthProperty().bind(aev.widthProperty());
+        lblVta.prefWidthProperty().bind(vta.widthProperty());
+        lblTa.prefWidthProperty().bind(total.widthProperty());
+        empty.prefWidthProperty().bind(vat.widthProperty());
+    }
+    
+    private void doCalculations(){
+        System.out.println("in calc");
+        List<Item> items = tableView.getItems();
+        NumberFormat cf = NumberFormat.getCurrencyInstance(Locale.US);
+        int tQuantity = 0;
+        double tmrp=0, tnrp=0, tdiscount=0, taev=0, tta=0, tvta=0;
+        for(Item it:items){
+            tQuantity +=it.getQuantity();
+            tmrp += it.getMrp();
+            tnrp += it.getNrp();
+            tdiscount += it.getDiscount();
+            taev += it.getNrpWithoutVat();
+            tta += it.getTotalAmount();
+            tvta += it.getVatAmount();
+        }
+        
+        lblQuantity.setText(cf.format(tQuantity).replaceAll("$", ""));
+        lblMrp.setText(cf.format(tmrp).replaceAll("$", ""));
+        lblNrp.setText(cf.format(tnrp).replaceAll("$", ""));
+        lblDiscount.setText(cf.format(tdiscount).replaceAll("$", ""));
+        lblAev.setText(cf.format(taev).replaceAll("$", ""));
+        lblTa.setText(cf.format(tta).replaceAll("$", ""));
+        lblVta.setText(cf.format(tvta).replaceAll("$", ""));       
+        if(quota.getVat().equals("VAT in total")){
+            lblTotal.setText(rb.getString("iwq_total")+"\n"
+                    +String.format(rb.getString("iwq_outvat"), PROP.get("vat_percentage")+"%="
+                    +"\n"+rb.getString("iwq_taiv")));
+            lblAev.setText(cf.format(taev).replaceAll("$", "")
+                    +"\n"+cf.format(tvta).replaceAll("$", "")
+                    +"\n"+cf.format(tta).replaceAll("$", ""));
+        }
     }
 }

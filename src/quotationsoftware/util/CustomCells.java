@@ -20,6 +20,7 @@ import quotationsoftware.dao.ExcelDAO;
 import quotationsoftware.model.Item;
 import static quotationsoftware.QuatationSoftware.PROP;
 
+
 /**
  *
  * @author sakit
@@ -85,6 +86,7 @@ public class CustomCells {
                         if (getIndex() < getTableView().getItems().size()) {
                             getTableView().getItems().set(getIndex(), item);
                             getTableView().getItems().add(new Item());
+                            
                         }
                     });
                 }
@@ -177,11 +179,12 @@ public class CustomCells {
                 setGraphic(null);
             }
 
-            @Override
-            public void commitEdit(Integer newValue) {
-                super.commitEdit(newValue);
-                ((Item) getTableView().getItems().get(getIndex())).setQuantity(newValue);
-            }
+//            @Override
+//            public void commitEdit(Integer newValue) {
+//                super.commitEdit(newValue);
+//                ((Item) getTableView().getItems().get(getIndex())).setQuantity(newValue);
+//                
+//            }
 
             @Override
             public void updateItem(Integer item, boolean empty) {

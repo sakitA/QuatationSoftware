@@ -121,7 +121,7 @@
             </Text>
             <TableView fx:id="tableView" editable="true" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="itemNumber" editable="false" maxWidth="45.0" minWidth="30.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_sn" />
+                <TableColumn fx:id="itemNumber" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="-1.0" sortable="false" style="-fx-alignment: center;" text="%iwq_sn" />
                 <TableColumn fx:id="itemCode" maxWidth="200.0" minWidth="200.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_ic" />
                   <TableColumn fx:id="itemDescription" editable="false" style="-fx-alignment: center;" text="%iwq_id" />
                   <TableColumn fx:id="itemQuantity" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" style="-fx-alignment: center;" text="%iwq_q" />
@@ -138,35 +138,90 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+               <VBox.margin>
+                  <Insets left="3.0" right="3.0" />
+               </VBox.margin>
             </TableView>
          </children>
       </VBox>
    </center>
    <bottom>
-      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox stylesheets="@../cascadestyle/labelstyle.css">
          <children>
-            <Button id="arrow" mnemonicParsing="false" onAction="#back">
-               <graphic>
-                  <ImageView fitHeight="75.0" fitWidth="90.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/left.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button id="save" maxHeight="25.0" maxWidth="25.0" mnemonicParsing="false" onAction="#save">
-               <graphic>
-                  <ImageView fitHeight="75.0" fitWidth="90.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../images/ok.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
+            <HBox fx:id="hbox" maxWidth="1.7976931348623157E308" spacing="1.0">
+               <children>
+                  <Label fx:id="lblTotal" alignment="CENTER_RIGHT" text="%iwq_total" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="lblQuantity" alignment="CENTER" maxWidth="-Infinity" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="lblMrp" alignment="CENTER" maxWidth="-Infinity" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="lblDiscount" alignment="CENTER" maxWidth="-Infinity" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="lblNrp" alignment="CENTER" maxWidth="-Infinity" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="empty" />
+                  <Label id="total" fx:id="lblAev" alignment="CENTER" maxWidth="-Infinity" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="lblVta" alignment="CENTER" maxWidth="-Infinity" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label id="total" fx:id="lblTa" alignment="CENTER" maxWidth="-Infinity" prefHeight="22.0" prefWidth="17.0" text="0" textFill="RED" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets left="3.0" right="3.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button id="arrow" mnemonicParsing="false" onAction="#back">
+                     <graphic>
+                        <ImageView fitHeight="75.0" fitWidth="90.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button id="save" maxHeight="25.0" maxWidth="25.0" mnemonicParsing="false" onAction="#save">
+                     <graphic>
+                        <ImageView fitHeight="75.0" fitWidth="90.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../images/ok.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="3.0" />
+               </BorderPane.margin>
+            </HBox>
          </children>
-         <BorderPane.margin>
-            <Insets top="3.0" />
-         </BorderPane.margin>
-      </HBox>
+      </VBox>
    </bottom>
 </BorderPane>

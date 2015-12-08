@@ -233,7 +233,7 @@ public class NewQuote implements Initializable {
                     childStage.setTitle(view.substring(view.lastIndexOf("/") + 1, view.lastIndexOf(".")));
                     childStage.initOwner(primaryStage);
                     childStage.initModality(Modality.WINDOW_MODAL);
-                    childStage.initStyle(StageStyle.UNDECORATED);
+                    //childStage.initStyle(StageStyle.UNDECORATED);
                     childStage.setMaximized(true);
                     new UndecoratedWindow(childStage, scene);
                 });

@@ -288,7 +288,8 @@ public class Item {
         if (nrpWithoutVat == null) {
             nrpWithoutVat = new SimpleDoubleProperty(this, "nrpWithoutVat");
         }
-        nrpWithoutVat.bind(Bindings.subtract(nrpProperty(), vatAmountProperty()));
+        if(totalAmount.getValue()!=null)
+            nrpWithoutVat.bind(Bindings.subtract(totalAmount, vatAmountProperty()));
         return nrpWithoutVat;
     }
 
@@ -319,7 +320,7 @@ public class Item {
         if (vatAmount == null) {
             vatAmount = new SimpleDoubleProperty(this, "vatAmount");
         }
-        vatAmount.bind(Bindings.divide(Bindings.multiply(vatPercentageProperty(), totalAmountProperty()),100.0));
+        vatAmount.bind(Bindings.multiply(vatPercentageProperty(), totalAmountProperty()).divide(100.0));
         return vatAmount;
     }
 
