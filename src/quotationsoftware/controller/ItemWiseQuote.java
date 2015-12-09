@@ -27,7 +27,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import quotationsoftware.dao.QuotationDAO;
@@ -39,6 +38,7 @@ import quotationsoftware.dao.ItemDAO;
 import quotationsoftware.util.DbHandler;
 import quotationsoftware.util.Notifications;
 import static quotationsoftware.QuatationSoftware.PROP;
+import quotationsoftware.dao.ExcelDAO;
 
 /**
  *
@@ -172,9 +172,9 @@ public class ItemWiseQuote implements Initializable {
         image.setVisible(quota.getDisplay().equals("Display with image"));
         final ObservableList<TableColumn<Item, ?>> list = tableView.getColumns();
         if (columns.length != 0) {
-            int index = 0;
-            for (int i = 0; i < columns.length; i++) {
-                index = list.indexOf(columns[i]);
+            int index;
+            for (TableColumn<Item, ?> column : columns) {
+                index = list.indexOf(column);
                 list.get(index).setVisible(false);                
             }
         } else {
@@ -201,7 +201,7 @@ public class ItemWiseQuote implements Initializable {
 
         itemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
         itemCode.setCellFactory(param -> {
-            return CustomCells.codeListCell();
+            return CustomCells.codeListCell(ExcelDAO.getInstance().getListCodes());
         });
 
         itemDescription.setCellValueFactory(new PropertyValueFactory<>("itemDescription"));
@@ -339,20 +339,20 @@ public class ItemWiseQuote implements Initializable {
             tvta += it.getVatAmount();
         }
         
-        lblQuantity.setText(cf.format(tQuantity).replaceAll("$", ""));
-        lblMrp.setText(cf.format(tmrp).replaceAll("$", ""));
-        lblNrp.setText(cf.format(tnrp).replaceAll("$", ""));
-        lblDiscount.setText(cf.format(tdiscount).replaceAll("$", ""));
-        lblAev.setText(cf.format(taev).replaceAll("$", ""));
-        lblTa.setText(cf.format(tta).replaceAll("$", ""));
-        lblVta.setText(cf.format(tvta).replaceAll("$", ""));       
+        lblQuantity.setText(cf.format(tQuantity).replace("$", ""));
+        lblMrp.setText(cf.format(tmrp).replace("$", ""));
+        lblNrp.setText(cf.format(tnrp).replace("$", ""));
+        lblDiscount.setText(cf.format(tdiscount).replace("$", ""));
+        lblAev.setText(cf.format(taev).replace("$", ""));
+        lblTa.setText(cf.format(tta).replace("$", ""));
+        lblVta.setText(cf.format(tvta).replace("$", ""));       
         if(quota.getVat().equals("VAT in total")){
             lblTotal.setText(rb.getString("iwq_total")+"\n"
                     +String.format(rb.getString("iwq_outvat"), PROP.get("vat_percentage")+"%="
                     +"\n"+rb.getString("iwq_taiv")));
-            lblAev.setText(cf.format(taev).replaceAll("$", "")
-                    +"\n"+cf.format(tvta).replaceAll("$", "")
-                    +"\n"+cf.format(tta).replaceAll("$", ""));
+            lblAev.setText(cf.format(taev).replace("$", "")
+                    +"\n"+cf.format(tvta).replace("$", "")
+                    +"\n"+cf.format(tta).replace("$", ""));
         }
     }
 }

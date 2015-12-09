@@ -288,7 +288,7 @@ public class Item {
         if (nrpWithoutVat == null) {
             nrpWithoutVat = new SimpleDoubleProperty(this, "nrpWithoutVat");
         }
-        if(totalAmount.getValue()!=null)
+        if(totalAmountProperty().getValue()!=null)
             nrpWithoutVat.bind(Bindings.subtract(totalAmount, vatAmountProperty()));
         return nrpWithoutVat;
     }

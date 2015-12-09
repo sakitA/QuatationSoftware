@@ -6,6 +6,7 @@
 package quotationsoftware.util;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -46,7 +47,7 @@ public class CustomCells {
         };
     }
 
-    public static TableCell<Item, String> codeListCell() {
+    public static TableCell<Item, String> codeListCell(List<String> codeList) {
         return new TableCell<Item, String>() {
             private ComboBox<String> codes;
             private String current;
@@ -112,7 +113,7 @@ public class CustomCells {
             }
 
             private void createComboBox() {
-                codes = new ComboBox<>(FXCollections.observableArrayList(ExcelDAO.getInstance().getListCodes()));
+                codes = new ComboBox<>(FXCollections.observableArrayList(codeList));
                 codes.setEditable(true);
                 codes.setPromptText(RB.getString(Keys.CMB_TXT));
                 codes.setValue(current);
